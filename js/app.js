@@ -53,6 +53,7 @@ class UI {
   };
 
 
+
   // * Muestra un mensje en pantalla
   mostrarMensajeHtml(mensaje, extito = true) {
     ui.eliminarMensajeHTML();
@@ -67,6 +68,7 @@ class UI {
 
     document.querySelector('.primario').insertBefore(mensajeHTML, formulario);
   }
+
 
 
   // * Elimina el mensaje de pantalla
@@ -139,6 +141,17 @@ class UI {
     } else {
       btn.disabled = false;
     }
+  };
+
+
+
+  // * Elimina un gasto de la pantalla
+  eliminarGastoHtml(id) {
+    presupuesto.eliminarGasto(id);
+    ui.mostrarListaGastos(presupuesto.gastos);
+    ui.mostrarPresupuestoHtml(presupuesto);
+    ui.actualizarColorRestante(presupuesto);
+    ui.desctivarActivarBoton();
   };
 };
 
