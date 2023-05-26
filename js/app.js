@@ -11,6 +11,11 @@ class Presupuesto {
     this.restante = presupuesto;
     this.gastos = [];
   }
+
+  // * Agrega un gasto a la lista de gastos
+  nuevoGasto(gasto) {
+    this.gastos = [...this.gastos, gasto];
+  }
 };
 
 
@@ -90,12 +95,28 @@ const solicitarPresupuesto = () => {
 const agregarGasto = (event) => {
   event.preventDefault();
 
-  const gasto = document.querySelector('#gasto').value;
-  const cantidad = document.querySelector('#cantidad').value;
+  const nombre = document.querySelector('#gasto').value;
+  const cantidad = Number(document.querySelector('#cantidad').value);
 
   // validamos si alguno contiene vacio
-  if ([gasto, cantidad].includes('')) {
+  if ([nombre, cantidad].includes('')) {
     ui.mostrarMensajeHtml('Ambos campos son obligatorios', false);
     return;
+  } else if (cantidad <= 0 || isNaN(cantidad)) {
+    ui.mostrarMensajeHtml('Ingrese una cantidad valida', false);
+    return;
+  }
+
+  // Si pasa las validaciones eliminamos el mensaje en caso de exitir
+  ui.eliminarMensajeHTML();
+
+  // Creamos un gasto
+  const gasto = {
+    nombre,
+    cantidad,
+    id: Date.now()
   };
+
+  // Agregamos el gasto a la lista de gastos del presupuesto
+  presupuesto.nuevoGasto(gasto);
 };
