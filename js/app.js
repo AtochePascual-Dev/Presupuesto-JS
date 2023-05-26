@@ -26,6 +26,19 @@ class UI {
     presupuestoHtml.textContent = presupuesto;
     restanteHtml.textContent = restante;
   };
+
+  // * Muestra un mensje en pantalla
+  mostrarMensajeHtml(mensaje, extito = true) {
+    const mensajeHTML = document.createElement('DIV');
+    mensajeHTML.textContent = mensaje;
+    mensajeHTML.classList.add('text-center', 'alert');
+
+    (extito)
+      ? mensajeHTML.classList.add('alert-success')
+      : mensajeHTML.classList.add('alert-danger');
+
+    document.querySelector('.primario').insertBefore(mensajeHTML, formulario);
+  }
 };
 
 const ui = new UI();
@@ -38,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     solicitarPresupuesto();
     ui.mostrarPresupuestoHtml(presupuesto);
   }, 1200);
+
+  formulario.addEventListener('submit', agregarGasto);
 });
 
 
@@ -54,5 +69,20 @@ const solicitarPresupuesto = () => {
 
     // Miestras el presupuesto no sea el indicado seguir solicitnadolo
   } while (presupuestoUsuario === '' || presupuestoUsuario === null || isNaN(presupuestoUsuario) || presupuestoUsuario <= 0);
+};
 
+
+
+// * Agrega un gasto
+const agregarGasto = (event) => {
+  event.preventDefault();
+
+  const gasto = document.querySelector('#gasto').value;
+  const cantidad = document.querySelector('#cantidad').value;
+
+  // validamos si alguno contiene vacio
+  if ([gasto, cantidad].includes('')) {
+    ui.mostrarMensajeHtml('Ambos campos son obligatorios', false);
+    return;
+  };
 };
