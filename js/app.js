@@ -25,7 +25,7 @@ class Presupuesto {
   actualizarRestante() {
     // Acumulamos los gastos
     const total = this.gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
-    this.restante = this.restante - total;
+    this.restante = this.presupuesto - total;
   };
 };
 
