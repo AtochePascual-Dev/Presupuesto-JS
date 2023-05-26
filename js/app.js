@@ -25,7 +25,7 @@ class Presupuesto {
   actualizarRestante() {
     // Acumulamos los gastos
     const total = this.gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
-    this.restante -= total;
+    this.restante = this.restante - total;
   };
 };
 
@@ -100,6 +100,22 @@ class UI {
     while (gastoListado.firstChild) {
       gastoListado.firstChild.remove();
     }
+  };
+
+
+
+  // * Actualiza el color del restante en pantalla
+  actualizarColorRestante(presupuestoObje) {
+    const { presupuesto, restante } = presupuestoObje;
+    const restanteDiv = document.querySelector('.restante');
+
+    // comprobar 25%
+    ((presupuesto / 4) > restante)
+      ? restanteDiv.className = "restante alert alert-danger"
+      // comprobar 50%
+      : ((presupuesto / 2) > restante)
+        ? restanteDiv.className = "restante alert alert-warning"
+        : restanteDiv.className = "restante alert alert-success";
   };
 };
 
@@ -179,4 +195,9 @@ const agregarGasto = (event) => {
   const { gastos } = presupuesto;
   ui.mostrarListaGastos(gastos);
 
+  // Mostramos el nuevo presupuesto
+  ui.mostrarPresupuestoHtml(presupuesto);
+
+  // Actualizamos el color del restante
+  ui.actualizarColorRestante(presupuesto);
 };
