@@ -119,4 +119,15 @@ const agregarGasto = (event) => {
 
   // Agregamos el gasto a la lista de gastos del presupuesto
   presupuesto.nuevoGasto(gasto);
+
+  // Reseteamos el formulario
+  formulario.reset();
+
+  // Mostramos un mensaje de exito
+  ui.mostrarMensajeHtml('Gasto agregado correctamente');
+
+  // Eliminamos  el mensaje de exito despues de segundo y medio
+  setTimeout(() => {
+    ui.eliminarMensajeHTML();
+  }, 1500);
 };
