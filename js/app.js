@@ -27,11 +27,15 @@ class UI {
     restanteHtml.textContent = restante;
   };
 
+
   // * Muestra un mensje en pantalla
   mostrarMensajeHtml(mensaje, extito = true) {
+
+    ui.eliminarMensajeHTML();
+
     const mensajeHTML = document.createElement('DIV');
     mensajeHTML.textContent = mensaje;
-    mensajeHTML.classList.add('text-center', 'alert');
+    mensajeHTML.classList.add('text-center', 'alert', 'mensaje');
 
     (extito)
       ? mensajeHTML.classList.add('alert-success')
@@ -39,6 +43,15 @@ class UI {
 
     document.querySelector('.primario').insertBefore(mensajeHTML, formulario);
   }
+
+
+  // * Elimina el mensaje de pantalla
+  eliminarMensajeHTML() {
+    const existeMensaje = document.querySelector('.mensaje');
+
+    // Validamos si existe el mensaje y eliminamos
+    (existeMensaje) ? existeMensaje.remove() : null;
+  };
 };
 
 const ui = new UI();
