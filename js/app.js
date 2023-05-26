@@ -15,7 +15,18 @@ class Presupuesto {
   // * Agrega un gasto a la lista de gastos
   nuevoGasto(gasto) {
     this.gastos = [...this.gastos, gasto];
+
+    this.actualizarRestante();
   }
+
+
+
+  // * Actuliza el restante
+  actualizarRestante() {
+    // Acumulamos los gastos
+    const total = this.gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
+    this.restante -= total;
+  };
 };
 
 
@@ -71,7 +82,7 @@ class UI {
 
       li.className = "list-group-item d-flex justify-content-between align-items-center";
       li.dataset.id = id;
-      li.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">${cantidad}</span>`;
+      li.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">$${cantidad}</span>`;
 
       btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
       btnBorrar.textContent = "Borrar";
@@ -167,4 +178,5 @@ const agregarGasto = (event) => {
   // Mostramos la lista de gastos en pantalla
   const { gastos } = presupuesto;
   ui.mostrarListaGastos(gastos);
+
 };
