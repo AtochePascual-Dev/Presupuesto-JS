@@ -27,6 +27,15 @@ class Presupuesto {
     const total = this.gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
     this.restante = this.presupuesto - total;
   };
+
+
+
+  // * Elimina un gasto
+  eliminarGasto(id) {
+    this.gastos = this.gastos.filter(gasto => gasto.id !== id);
+
+    this.actualizarRestante();
+  };
 };
 
 
@@ -86,6 +95,7 @@ class UI {
 
       btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
       btnBorrar.textContent = "Borrar";
+      btnBorrar.onclick = () => { ui.eliminarGastoHtml(id); };
 
       li.appendChild(btnBorrar);
 
