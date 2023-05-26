@@ -35,7 +35,6 @@ class UI {
 
   // * Muestra un mensje en pantalla
   mostrarMensajeHtml(mensaje, extito = true) {
-
     ui.eliminarMensajeHTML();
 
     const mensajeHTML = document.createElement('DIV');
@@ -62,6 +61,8 @@ class UI {
 
   // * Muestra la lista de gastos en pantalla
   mostrarListaGastos(gastos) {
+    ui.limpiarListadoHtml();
+
     gastos.forEach(gasto => {
       const { nombre, cantidad, id } = gasto;
 
@@ -79,6 +80,15 @@ class UI {
 
       gastoListado.appendChild(li);
     });
+  };
+
+
+
+  // * Limpia e listado html
+  limpiarListadoHtml() {
+    while (gastoListado.firstChild) {
+      gastoListado.firstChild.remove();
+    }
   };
 };
 
