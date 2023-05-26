@@ -57,6 +57,29 @@ class UI {
     // Validamos si existe el mensaje y eliminamos
     (existeMensaje) ? existeMensaje.remove() : null;
   };
+
+
+
+  // * Muestra la lista de gastos en pantalla
+  mostrarListaGastos(gastos) {
+    gastos.forEach(gasto => {
+      const { nombre, cantidad, id } = gasto;
+
+      const li = document.createElement('LI');
+      const btnBorrar = document.createElement('BUTTON');
+
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.dataset.id = id;
+      li.innerHTML = `${nombre} <span class="badge badge-primary badge-pill">${cantidad}</span>`;
+
+      btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
+      btnBorrar.textContent = "Borrar";
+
+      li.appendChild(btnBorrar);
+
+      gastoListado.appendChild(li);
+    });
+  };
 };
 
 const ui = new UI();
@@ -130,4 +153,8 @@ const agregarGasto = (event) => {
   setTimeout(() => {
     ui.eliminarMensajeHTML();
   }, 1500);
+
+  // Mostramos la lista de gastos en pantalla
+  const { gastos } = presupuesto;
+  ui.mostrarListaGastos(gastos);
 };
