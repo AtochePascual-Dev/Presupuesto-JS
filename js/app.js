@@ -117,6 +117,19 @@ class UI {
         ? restanteDiv.className = "restante alert alert-warning"
         : restanteDiv.className = "restante alert alert-success";
   };
+
+
+
+  // * Activa y desactiv el boton de agregar gasto
+  desctivarActivarBoton() {
+    const btn = document.querySelector('.btn');
+
+    if (presupuesto.restante === 0) {
+      btn.disabled = true;
+    } else {
+      btn.disabled = false;
+    }
+  };
 };
 
 const ui = new UI();
@@ -165,6 +178,9 @@ const agregarGasto = (event) => {
   } else if (cantidad <= 0 || isNaN(cantidad)) {
     ui.mostrarMensajeHtml('Ingrese una cantidad valida', false);
     return;
+  } else if (cantidad > presupuesto.restante) {
+    ui.mostrarMensajeHtml('No cuenta con monto suficiente', false);
+    return;
   }
 
   // Si pasa las validaciones eliminamos el mensaje en caso de exitir
@@ -200,4 +216,7 @@ const agregarGasto = (event) => {
 
   // Actualizamos el color del restante
   ui.actualizarColorRestante(presupuesto);
+
+  // Activmos ó desactivamos el boton segun restante
+  ui.desctivarActivarBoton();
 };
